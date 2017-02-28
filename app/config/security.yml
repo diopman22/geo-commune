@@ -1,0 +1,43 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: sha1
+        UtilisateursBundle\Entity\User: sha1
+
+    role_hierarchy:
+        ROLE_PROPRIETAIRE:  ROLE_PROPRIETAIRE
+        ROLE_COMMISSION:    ROLE_COMMISSION
+        ROLE_MODERATEUR:    ROLE_MODERATEUR
+
+    providers:
+        #in_memory:
+        #    memory: # utilise les utilisateurs définis dans la configuration;
+        #        users:
+        #            proprietaire: { password: propripass, roles:  ['ROLE_PROPRIETAIRE']}
+        #            representant: { password: reprepass,  roles:  ['ROLE_COMMISSION']}
+        #            moderateur:   { password: modpass,    roles:  ['ROLE_MODERATEUR']}
+        main: # nom du provider
+            entity: # utilise de façon simple une entité pour fournir les utilisateurs;
+                class: UtilisateursBundle\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: true
+            provider: main # utilise le fournisseur que nous avons défini
+            form_login:
+                login_path: login
+                check_path: login_check
+                default_target_path: login_target
+            logout:
+                path: logout
+                target: /accueil
+    access_control:
+        - { path: ^/accueil, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
+        - { path: ^/map/map1, roles: ROLE_COMMISSION, requires_channel: http }
+        - { path: ^/map/map2, roles: ROLE_PROPRIETAIRE, requires_channel: http }
+        - { path: ^/map/map3, roles: ROLE_MODERATEUR, requires_channel: http }

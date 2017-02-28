@@ -1,0 +1,15 @@
+map_domanial:
+    path:     /map1
+    defaults: { _controller: MapBundle:Map:domanial }
+
+map_proprietaire:
+    path:    /map2
+    defaults: { _controller: MapBundle:Map:proprietaire }
+
+map_moderateur:
+    path:    /map3
+    defaults: { _controller: MapBundle:Map:moderateur }
+
+map_delete_overlay:
+    path:    /map1/remove
+    defaults: { _controller: MapBundle:Map:deleteOverlay }

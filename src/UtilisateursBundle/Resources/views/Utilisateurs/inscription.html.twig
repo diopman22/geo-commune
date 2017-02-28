@@ -1,0 +1,163 @@
+{%  extends "::layout.html.twig"  %}
+
+{% block titre %} Inscription {% endblock %}
+
+{% block navigation %}
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path("utilisateurs_homepage") }}">Accueil</a>
+                </li>
+                <li>
+                    <a href="{{ path("utilisateurs_inscription") }}">Obtenir un compte</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+{% endblock %}
+
+{% block pageContent %}
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Inscription
+                <small>Créer un compte pour plus d'options ...</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    {# debut du formulaire d'inscription #}
+    {{form_start(form)}}
+    {{form_errors(form)}}<br/>
+    <div class="alert alert-info">
+    <!-- Project One -->
+        <!-- prenom -->
+    <div class="row">
+        <div class="col-md-12">
+        {# Génération du label. #}
+        {{ form_label(form.prenom, "Prénom : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.prenom) }}
+        <div class="col-sm-4">
+          {# Génération de l'input. #}
+          {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+          </div>
+      </div>
+    </div>
+    <br/>
+    <!-- nom -->
+<div class="row">
+    <div class="col-md-12">
+    {# Génération du label. #}
+    {{ form_label(form.nom, "Nom : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+    {# Affichage des erreurs pour ce champ précis. #}
+    {{ form_errors(form.nom) }}
+    <div class="col-sm-4">
+      {# Génération de l'input. #}
+      {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+      </div>
+  </div>
+</div>
+<br/>
+<!-- date -->
+<div class="row">
+<div class="col-md-12">
+{# Génération du label. #}
+{{ form_label(form.dateNaiss, "Date de Naissance : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+{# Affichage des erreurs pour ce champ précis. #}
+{{ form_errors(form.dateNaiss) }}
+<div class="col-sm-4">
+  {# Génération de l'input. #}
+  {{ form_widget(form.dateNaiss) }}
+  </div>
+</div>
+</div>
+<br/>
+<!-- lieuNaiss -->
+<div class="row">
+<div class="col-md-12">
+{# Génération du label. #}
+{{ form_label(form.lieuNaiss, "Lieu de Naissance : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+{# Affichage des erreurs pour ce champ précis. #}
+{{ form_errors(form.lieuNaiss) }}
+<div class="col-sm-4">
+  {# Génération de l'input. #}
+  {{ form_widget(form.lieuNaiss, {'attr': {'class': 'form-control'}}) }}
+  </div>
+</div>
+</div>
+<br/>
+<!-- username -->
+<div class="row">
+<div class="col-md-12">
+{# Génération du label. #}
+{{ form_label(form.username, "Login : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+{# Affichage des erreurs pour ce champ précis. #}
+{{ form_errors(form.username) }}
+<div class="col-sm-4">
+  {# Génération de l'input. #}
+  {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+  </div>
+</div>
+</div>
+<br/>
+<!-- password -->
+<div class="row">
+<div class="col-md-12">
+{# Génération du label. #}
+{{ form_label(form.password, "Password : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+{# Affichage des erreurs pour ce champ précis. #}
+{{ form_errors(form.password) }}
+<div class="col-sm-4">
+  {# Génération de l'input. #}
+  {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+  </div>
+</div>
+</div>
+<br/>
+<!-- roles -->
+<div class="row">
+<div class="col-md-12">
+{# Génération du label. #}
+{{ form_label(form.profil, "Rôles : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+{# Affichage des erreurs pour ce champ précis. #}
+{{ form_errors(form.profil) }}
+<div class="col-sm-4">
+  {# Génération de l'input. #}
+  {{ form_widget(form.profil, {'attr': {'class': 'form-control'}}) }}
+  </div>
+</div>
+</div>
+<br/>
+<!-- save button -->
+<div class="row">
+<div class="col-md-6">
+  {{ form_widget(form.Valider, {'attr': {'class': 'btn btn-primary btn-md pull-right'}}) }}
+</div>
+</div>
+<!-- /.row -->
+{{ form_end(form) }}
+</div> <!-- end alertInfo -->
+{# fin du formulaire d'inscription #}
+
+</div>
+<!-- /.container -->
+{% endblock %}

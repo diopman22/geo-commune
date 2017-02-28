@@ -1,0 +1,157 @@
+{%  extends "::layout.html.twig"  %}
+
+{% block titre %} Accueil {% endblock %}
+
+{%  block bodyOnLoad %} onload="initAutocomplete()" {% endblock %}
+
+{% block navigation %}
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path("utilisateurs_homepage") }}">Accueil</a>
+                </li>
+                <li>
+                    <a href="{{ path("utilisateurs_inscription") }}">Obtenir un compte</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+{% endblock %}
+
+{% block pageContent %}
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Sénégal Map
+                <small>Manipuler votre carte</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Project One -->
+    <div class="row">
+        <div class="col-md-9">
+            <input id="pac-input" class="controls" type="text" placeholder="Rechercher...">
+            <div id="map" style="width:95%; height:70%"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                    {% if error %}
+                      {# message d'erreur récupérable dans error.message #}
+                      <div class="alert alert-danger">Login ou Mot de passe incorrect !</div>
+                    {% endif %}
+          </div>
+            <div class="row">
+                <center><h3>Connectez vous...</h3></center>
+            </div>
+            <br/>
+            {# ici mettre le formulaire de connexion #}
+            <div class="row">
+            <div class="alert alert-info">
+            {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+              <form action="{{ path('login_check') }}" method="post">
+                    <label for="username">Login :</label>
+                    <input class="form-control" type="email" id="username" name="_username" value="{{ last_username }}" />
+                    <br/>
+                    <label for="password">Password :</label>
+                    <input class="form-control" type="password" id="password" name="_password" />
+                    <br />
+                    <input class="btn btn-primary" type="submit" value="Connexion" />
+              </form>
+              </div>
+              {# Fin du formulaire  #}
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+{% endblock %}
+
+{% block autresScripts %}
+<script type="text/javascript">
+function initAutocomplete() {
+  var latlng = new google.maps.LatLng(14.4974000, -14.4523611);
+  //objet contenant des propriétés avec des identificateurs prédéfinis dans Google Maps permettant de définir des options d'affichage de notre carte
+  var options = {
+          center: latlng,
+          zoom: 7,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+  var map = new google.maps.Map(document.getElementById("map"), options);
+
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  var markers = [];
+  // [START region_getplaces]
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
+  // [END region_getplaces]
+
+} //fin fonction initAutocomplete
+
+</script>
+
+{% endblock %}

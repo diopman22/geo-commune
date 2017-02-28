@@ -1,0 +1,25 @@
+utilisateurs:
+    resource: "@UtilisateursBundle/Resources/config/routing.yml"
+    prefix:   /accueil
+
+map:
+    resource: "@MapBundle/Resources/config/routing.yml"
+    prefix:   /map
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+login:
+    path: /accueil
+    defaults: {  _controller: UtilisateursBundle:Utilisateurs:index  }
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
+login_target:
+    path: /accueil
+    defaults: { _controller: UtilisateursBundle:Utilisateurs:index  }
